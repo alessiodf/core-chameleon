@@ -1,3 +1,4 @@
+import { app } from "@arkecosystem/core-container";
 import { Container } from "@arkecosystem/core-interfaces";
 import { Chameleon } from "./chameleon";
 import { defaults } from "./defaults";
@@ -8,7 +9,7 @@ export const plugin: Container.IPluginDescriptor = {
     defaults,
     alias: "core-chameleon",
     async register(container: Container.IContainer, options: IOptions): Promise<Chameleon> {
-        if (!options.enabled) {
+        if (!options.enabled || (options.enabled === "ifDelegate" && !app.getConfig().get("delegates.secrets").length)) {
             return undefined;
         }
         const chameleon: Chameleon = new Chameleon(options);

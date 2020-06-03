@@ -81,6 +81,8 @@ In its most basic form, you should add the following code block to your Core con
 
 ```
 
+You can also set `{ enabled: "ifDelegate" }` to only enable the plugin if your node has at least one passphrase configured in its `delegates.json` file.
+
 For example, your `plugins.js` file should look similar to this:
 
 ```

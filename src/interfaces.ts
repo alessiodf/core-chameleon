@@ -68,7 +68,7 @@ export interface IMonitor extends P2P.INetworkMonitor {
 
 export interface IOptions extends Container.IPluginOptions {
     apiSync: boolean;
-    enabled: boolean;
+    enabled: boolean | "ifDelegate";
     fetchTransactions: boolean;
     socket: string;
     tor: {
