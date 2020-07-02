@@ -81,8 +81,6 @@ In its most basic form, you should add the following code block to your Core con
 
 ```
 
-You can also set `{ enabled: "ifDelegate" }` to only enable the plugin if your node has at least one passphrase configured in its `delegates.json` file.
-
 For example, your `plugins.js` file should look similar to this:
 
 ```
@@ -120,7 +118,7 @@ If you would like to deviate from the default behaviour of Core Chameleon, pleas
 
 `apiSync`: This will determine whether Core should initially sync with the network using the P2P layer or the Public API. Using the P2P layer is much faster, so is the default, but can sometimes be unreliable over Tor due to the high volume of data that may be transferred via a single websocket. If you experience problems syncing via the P2P layer, you can set this to `true` to use the Public API instead which will split the load more evenly across multiple Tor nodes. Be aware that this will be significantly slower but more stable. Default: `false`.
 
-`enabled`: This must be `true` for Core Chameleon to start. Setting it to `false` will disable all functionality and revert Core to standard behaviour. Default: `false`.
+`enabled`: This must be `true` or `"ifDelegate"` for Core Chameleon to start. Setting it to `false` will disable all functionality and revert Core to standard behaviour. If set to the string value `"ifDelegate"` Core Chameleon will only start if the node has at least one passphrase configured in its `delegates.json` file. If `true` it will start at all times. Default: `false`.
 
 `fetchTransactions`: This option sets whether the plugin should poll the network for unconfirmed transactions to add to our transaction pool. It adds more network overhead so you can set this to `false` if you are only running a relay and you do not care about receiving unconfirmed transactions. If you are a forging delegate, this should always be `true`. Default: `true`.
 
