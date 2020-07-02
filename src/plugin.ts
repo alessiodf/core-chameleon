@@ -9,12 +9,9 @@ export const plugin: Container.IPluginDescriptor = {
     defaults,
     alias: "core-chameleon",
     async register(container: Container.IContainer, options: IOptions): Promise<Chameleon> {
-        let secrets: String[] = app.getConfig().get("delegates.secrets") || [];
-        if (!options.enabled || (options.enabled === "ifDelegate" && !secrets.length && !app.getConfig().get("delegates.bip38"))) {
-            secrets = null;
+        if (!options.enabled || (options.enabled === "ifDelegate" && !(app.getConfig().get("delegates.secrets") || []).length && !app.getConfig().get("delegates.bip38"))) {
             return undefined;
         }
-        secrets = null;
         const chameleon: Chameleon = new Chameleon(options);
         await chameleon.start();
 
