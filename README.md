@@ -50,6 +50,8 @@ This will install Tor and other dependencies (if they are not already installed)
 
 Once the installation is complete, you should delete this file.
 
+**Note:** When starting a new network, ensure that your genesis delegates are split up in multiple (at least two) forging nodes. This ensures that there are multiple sources that broadcast new blocks to relays. This is important because relays cannot passively download blocks directly from forgers behind Chameleon.
+
 ## Updates, Configuration and Removal
 
 Once installed, you can check for any updates and enable or disable the plugin on demand by running `chameleon` and specifying the action you want, for example `chameleon --update`. Valid actions are listed below:
