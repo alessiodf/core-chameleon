@@ -1,5 +1,5 @@
-import { app } from "@arkecosystem/core-container";
-import { EventEmitter, Logger } from "@arkecosystem/core-interfaces";
+import { app } from "@blockpool-io/core-container";
+import { EventEmitter, Logger } from "@blockpool-io/core-interfaces";
 import { ChildProcess, spawn, spawnSync } from "child_process";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 import { IModule, IOptions } from "./interfaces";

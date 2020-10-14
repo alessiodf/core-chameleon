@@ -1,5 +1,5 @@
-import { Blockchain, Container, P2P } from "@arkecosystem/core-interfaces";
-import { Interfaces } from "@arkecosystem/crypto";
+import { Blockchain, Container, P2P } from "@blockpool-io/core-interfaces";
+import { Interfaces } from "@blockpool-io/crypto";
 import { AgentOptions } from "agent-base";
 import { AsyncQueue } from "async";
 import { EventEmitter } from "events";

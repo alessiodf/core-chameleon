@@ -1,5 +1,5 @@
-import { app } from "@arkecosystem/core-container";
-import { Container } from "@arkecosystem/core-interfaces";
+import { app } from "@blockpool-io/core-container";
+import { Container } from "@blockpool-io/core-interfaces";
 import { Chameleon } from "./chameleon";
 import { defaults } from "./defaults";
 import { IOptions } from "./interfaces";

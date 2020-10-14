@@ -83,7 +83,7 @@ disable () {
     heading "    => Disabling Core Chameleon"
     networks
     ESCAPED=${PLUGIN//\//\\\/}
-    if grep -q "\"@arkecosystem/core-p2p\": {" ~/.config/"${CORE}"/plugins.js; then
+    if grep -q "\"@blockpool-io/core-p2p\": {" ~/.config/"${CORE}"/plugins.js; then
         if grep -q ${PLUGIN} ~/.config/"${CORE}"/plugins.js; then
             if gawk -i inplace "/${ESCAPED}/ {on=1} on && /@/ && !/${ESCAPED}/ {on=0} {if (!on) print}" ~/.config/"${CORE}"/plugins.js 2>> "${LOG}"; then
                 heading "    => Disabled for ${CORE}"
@@ -111,8 +111,8 @@ enable () {
     networks
     ESCAPED=${PLUGIN//\//\\\/}
     if ! grep -q ${PLUGIN} ~/.config/"${CORE}"/plugins.js; then
-        if grep -q "\"@arkecosystem/core-p2p\": {" ~/.config/"${CORE}"/plugins.js; then
-            if gawk -i inplace "/@arkecosystem\/core-p2p/ {on=1} on && /@/ && !/@arkecosystem\/core-p2p/ {print \"    \\\"${ESCAPED}\\\": {\n        enabled: true,\n    },\"; on=0} {print}" ~/.config/"${CORE}"/plugins.js 2>> "${LOG}"; then
+        if grep -q "\"@blockpool-io/core-p2p\": {" ~/.config/"${CORE}"/plugins.js; then
+            if gawk -i inplace "/@blockpool-io\/core-p2p/ {on=1} on && /@/ && !/@blockpool-io\/core-p2p/ {print \"    \\\"${ESCAPED}\\\": {\n        enabled: true,\n    },\"; on=0} {print}" ~/.config/"${CORE}"/plugins.js 2>> "${LOG}"; then
                 heading "    => Enabled for ${CORE}"
                 if grep -q alessiodf/block-propagator ~/.config/"${CORE}"/plugins.js; then
                     read -rp "       ${BOLD}Core Chameleon supersedes Block Propagator, which is enabled. Disable Block Propagator now? [Y/n]: ${RESET}" CHOICE
@@ -175,7 +175,7 @@ install ()
             echo "${RED}${BOLD}Core Chameleon is already installed for ${COREPATH}."
             echo "Run this script with '--update' instead of '--install' and try again, or specify a different Core installation path.${RESET}"
         else
-            echo "${RED}${BOLD}Core Chameleon is already installed for the global ARK Core."
+            echo "${RED}${BOLD}Core Chameleon is already installed for the global BPL Core."
             echo "Run this script with '--update' instead of '--install' and try again, or specify a different Core installation path.${RESET}"
         fi
         exit 1
@@ -353,49 +353,49 @@ if [[ "${ACTION}" == "" ]]; then
     heading "    => --update - Updates Core Chameleon to the latest version"
     heading "    => --version - Prints the currently installed version of Core Chameleon"
     echo
-    heading "If you have installed ARK Core from Git or ARK Deployer, also specify the path to ARK Core."
+    heading "If you have installed BPL Core from Git, also specify the path to BPL Core."
     EXAMPLE="bash ${0##*/} --install"
     if [[ -f ~/.bashrc ]] && grep -q "alias chameleon" ~/.bashrc; then
         EXAMPLE="chameleon --update"
     fi
-    heading "For example: ${EXAMPLE} ${HOME}/ark-core"
+    heading "For example: ${EXAMPLE} ${HOME}/BPL-core"
     exit 0
 fi
 
 readarray -t NETWORKS <<< "$(find ~/.config/*-core/*/plugins.js 2>> "${LOG}" | cut -d "/" -f5-6)"
 if [ "${NETWORKS[0]}" == "" ]; then
-    echo "${RED}${BOLD}No ARK Core configuration found. Install ARK Core and try again.${RESET}"
+    echo "${RED}${BOLD}No BPL Core configuration found. Install BPL Core and try again.${RESET}"
     exit 1
 fi
 
 COREPATH=
 
 if [ "${2}" != "" ] && ! [[ -d ${2}/packages/core ]]; then
-    echo "${RED}${BOLD}No ARK Core installation found at ${2}. Check the path and try again.${RESET}"
+    echo "${RED}${BOLD}No BPL Core installation found at ${2}. Check the path and try again.${RESET}"
     exit 1
 else
     COREPATH=${2}
 fi
 
-if [ "${COREPATH}" == "" ] && ! [[ -d ~/.config/yarn/global/node_modules/@arkecosystem/core ]]; then
-    echo "${RED}${BOLD}No global ARK Core installation found. Install ARK Core and try again, or specify a path to ARK Core."
+if [ "${COREPATH}" == "" ] && ! [[ -d ~/.config/yarn/global/node_modules/@blockpool-io/core ]]; then
+    echo "${RED}${BOLD}No global BPL Core installation found. Install BPL Core and try again, or specify a path to BPL Core."
     EXAMPLE="bash ${0##*/}"
     if [[ -f ~/.bashrc ]] && grep -q "alias chameleon" ~/.bashrc; then
         EXAMPLE="chameleon"
     fi
-    echo "For example: ${EXAMPLE} --${ACTION} ${HOME}/ark-core ${RESET}"
+    echo "For example: ${EXAMPLE} --${ACTION} ${HOME}/bpl-core ${RESET}"
     exit 1
 fi
 
 if [ "${COREPATH}" == "" ]; then
-    COREVERSION=$(< ~/.config/yarn/global/node_modules/@arkecosystem/core/package.json jq -r .version)
+    COREVERSION=$(< ~/.config/yarn/global/node_modules/@blockpool-io/core/package.json jq -r .version)
 else
     COREVERSION=$(< "${2}"/packages/core/package.json jq -r .version)
 fi
 
 MINVERSION=2.6
 if { echo "${COREVERSION}"; echo ${MINVERSION}; } | sort -n -c 2>/dev/null; then
-    echo "${RED}${BOLD}Core Chameleon requires ARK Core 2.6. You have version ${COREVERSION}.${RESET}"
+    echo "${RED}${BOLD}Core Chameleon requires BPL Core 2.6. You have version ${COREVERSION}.${RESET}"
     exit 1
 fi
 

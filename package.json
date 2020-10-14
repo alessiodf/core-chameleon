@@ -22,7 +22,7 @@
         "socks": "^2.3.3"
     },
     "devDependencies": {
-        "@arkecosystem/core": "^2.6.0"
+        "@blockpool-io/core": "^2.6.0"
     },
     "prettier": {
         "printWidth": 100,
